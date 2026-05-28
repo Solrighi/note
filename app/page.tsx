@@ -1,50 +1,56 @@
-"use client"
+"use client";
 
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Header from "./components/header";
 import Navbar from "./components/navbar";
-import { BellSimpleRingingIcon, FileArrowDownIcon, LightbulbFilamentIcon, NotePencilIcon, TrashIcon } from "@phosphor-icons/react";
+import {
+  BellSimpleRingingIcon,
+  FileArrowDownIcon,
+  LightbulbFilamentIcon,
+  NotePencilIcon,
+  TrashIcon,
+} from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Reminder from "./reminder/page";
 import File from "./file/page";
 import Trash from "./trash/trash";
 import Note from "./note/page";
 import EditNote from "./editNote/page";
 
-
 export default function Home() {
   const [opened, { toggle }] = useDisclosure(true);
   const optionsMenu = [
     {
-      name: 'Notas',
+      name: "Notas",
       icon: LightbulbFilamentIcon,
-      router: '/note'
+      router: "/note",
     },
     {
-      name: 'Lembretes',
+      name: "Lembretes",
       icon: BellSimpleRingingIcon,
-      router: '/reminder'
+      router: "/reminder",
     },
     {
-      name: 'Editar marcadores',
+      name: "Editar marcadores",
       icon: NotePencilIcon,
-      router: '/editNote'
+      router: "/editNote",
     },
     {
-      name: 'Arquivo',
+      name: "Arquivo",
       icon: FileArrowDownIcon,
-      router: '/file'
+      router: "/file",
     },
     {
-      name: 'Lixeira',
+      name: "Lixeira",
       icon: TrashIcon,
-      router: '/trash'
-    }]
-  const [currentTab, setCurrentTab] = useState('notas');
+      router: "/trash",
+    },
+  ];
+  const [currentTab, setCurrentTab] = useState("/note");
   const handleNavigate = (tabId: string) => {
-    setCurrentTab(tabId)
+    setCurrentTab(tabId);
   };
 
   return (
@@ -53,26 +59,25 @@ export default function Home() {
       header={{ height: 60 }}
       navbar={{
         width: 300,
-        breakpoint: 'xl',
+        breakpoint: "xl",
         collapsed: { mobile: !opened, desktop: !opened },
       }}
     >
-      <AppShell.Header  >
-        <Header opened={opened} onToggle={toggle}/>
+      <AppShell.Header>
+        <Header opened={opened} onToggle={toggle} />
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <Navbar optionsMenu={optionsMenu} onNavigate={handleNavigate}/>
+        <Navbar optionsMenu={optionsMenu} onNavigate={handleNavigate} />
       </AppShell.Navbar>
 
       <AppShell.Main>
-        {currentTab === '/note' && <Note />}
-        {currentTab === '/reminder' && <Reminder/>}
-        {currentTab === '/editNote' && <EditNote/>}
-        {currentTab === '/file' && <File />}
-        {currentTab === '/trash' && <Trash />}
+        {currentTab === "/note" && <Note />}
+        {currentTab === "/reminder" && <Reminder />}
+        {currentTab === "/editNote" && <EditNote />}
+        {currentTab === "/file" && <File />}
+        {currentTab === "/trash" && <Trash />}
       </AppShell.Main>
     </AppShell>
-    
   );
 }
